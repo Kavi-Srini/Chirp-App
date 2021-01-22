@@ -1,0 +1,49 @@
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">User Pic</th>
+      <th scope="col">User</th>
+      <th scope="col">Following Status</th>
+      <th scope="col">Bio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+          
+            <td>
+              <% if user.avatar.attached? %>
+                      <%= image_tag (user.avatar.variant(resize_to_limit: [50,50]))%>
+                    <% else %>
+                      <%= image_tag("default_avatar.png", :size=>"50x50")%> 
+                    <% end%>
+            </td>
+          
+            <td>
+              <%= link_to show_user_path(id: user.id) do %>
+              <strong><%= user.name %></strong>
+              <p>@<%= user.username %></p>
+            <% end %>
+            </td>
+            <td>
+              <p>
+                <% if current_user.following.include?(user.id) %>
+                  <%= link_to "Unfollow", unfollow_path(id: user.id), class: "btn btn-danger", id: "unfollow_btn" %>
+                <% else %>
+                  <% if current_user.id != user.id %>
+                    <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-primary" %>
+                  <% end %>
+                <% end %>
+              </p>
+            </td>
+
+          <td>
+            <p>
+              <%= user.bio %>
+            </p>
+          </td>
+      
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,68 @@
+<h1>@<%= @user.username %>'s Profile & Chirps</h1>
+
+
+<div class="container">
+        <div class="row row-cols-3">
+        	<div class="col">
+        		<% if current_user.avatar.attached? %>
+                        <%= image_tag (chirp.user.avatar.variant(resize_to_limit: [50,50]))%>
+                      <% else %>
+                        <%= image_tag("default_avatar.png", :size=>"50x50")%> 
+                      <% end%>
+        	</div>
+        	<div class="col"></div>
+        	<div class="col"></div>    
+        </div>
+        <div class="container">
+            <h4 class="row">
+            	<%=@user.name %>		
+            </h4>
+            <p> Location: <%=@user.location %></p>
+            <p> Bio: <%= @user.bio %></p>
+
+            <p>
+                <% if current_user.following.include?(@user.id) %>
+                    <%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-primary", id: "unfollow_btn" %>
+                <% else %>
+                    <% if current_user.id != @user.id %>
+                    <%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-primary" %>
+                    <% else %>
+                            <div>
+                                <%= render 'chirps/form', chirp: @chirp %>
+                            </div>
+                        <% end %>
+                <% end %>
+            </p> 
+        </div>
+    </div>
+
+<br>
+
+<br>
+
+<% @user.chirps.each do |chirp| %>
+    <div class="row">
+            <div class="col-md-8">
+                <p>
+                    <% if chirp.user.avatar.attached? %>
+                        <%= image_tag (chirp.user.avatar.variant(resize_to_limit: [50,50]))%>
+                      <% else %>
+                        <%= image_tag("default_avatar.png", :size=>"50x50")%> 
+                    <% end%>
+
+                    @<%=chirp.user.username %> said... •
+                    <%= time_ago_in_words(chirp.created_at) if Time.now - chirp.created_at < 86400 %> 
+                    <%= chirp.created_at.strftime('%b %e') if Time.now - chirp.created_at > 86400 %>
+                </p>
+                    
+                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="feedwell" class="well well-sm">
+                        <p><%= chirp.message.html_safe %></p>
+                    </div>
+            </div>
+        </div>
+<%end%>

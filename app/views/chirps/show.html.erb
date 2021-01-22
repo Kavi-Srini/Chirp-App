@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @chirp.message.html_safe %>
+</p>
+
+<p>
+    <strong>User:</strong>
+    <%= link_to @chirp.user.username, show_user_path(id: @chirp.user.id) %>
+</p>
+
+<%if user_signed_in? && current_user.id == @chirp.user.id %>
+<%= link_to 'Edit', edit_chirp_path(@chirp) %> |
+<% end %>
+<%= link_to 'Back', chirps_path %>
