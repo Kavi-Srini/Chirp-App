@@ -5,9 +5,9 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>User</th>
       <th>Messages</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -22,12 +22,13 @@
                   <% end%>
           </td>
           <td>@<%= link_to chirp.user.username, show_user_path(id: chirp.user.id) %></td> 
-          <td><%= chirp.message.html_safe %></td>
-          <td><%= link_to 'Show', chirp %></td>
+         
+          <td><%= link_to chirp.message.html_safe , chirp %></td>
           <%if user_signed_in? && current_user.id == chirp.user.id %>
             <td><%= link_to 'Edit', edit_chirp_path(chirp) %></td>
+            <td><%= link_to 'Delete', chirp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <%end%>
-          <td><%= link_to 'Destroy', chirp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          
         </tr>
     <% end %>
   </tbody>
