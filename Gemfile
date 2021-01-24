@@ -29,8 +29,8 @@ gem 'image_processing', '~> 1.2'
 gem 'gravatar_image_tag'
 
 gem "aws-sdk-s3"
-require 'aws-sdk-s3'
-s3 = Aws::S3::Client.new
+# require 'aws-sdk-s3'
+# s3 = Aws::S3::Client.new
 
 gem 'devise'
 # Use Active Storage variant
