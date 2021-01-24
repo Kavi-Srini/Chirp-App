@@ -6,8 +6,8 @@
 <div class="container">
         <div class="row row-cols-3">
         	<div class="col">
-        		<% if current_user.avatar.attached? %>
-                        <%= image_tag (current_user.avatar.variant(resize_to_limit: [250,250]))%>
+        		<% if @user.avatar.attached? %>
+                        <%= image_tag (@user.avatar.variant(resize_to_limit: [250,250]))%>
                       <% else %>
                         <%= image_tag("default_avatar.png", :size=>"250x250")%> 
                       <% end%>
@@ -44,7 +44,7 @@
 <div class="row">
     <div class="col-5"></div>
     <div class="col">
-        <% @user.chirps.each do |chirp| %>
+        <% @user.chirps.reverse_each do |chirp| %>
     <div class="d-flex align-items-center">
             <div class="row my-3 " style="background-color: #ebf2ff; width: 500px">
                     <div class="col-xs mx-3 my-2">

@@ -25,8 +25,8 @@
          
           <td><%= link_to chirp.message.html_safe , chirp %></td>
           <%if user_signed_in? && current_user.id == chirp.user.id %>
-            <td><%= link_to 'Edit', edit_chirp_path(chirp) %></td>
-            <td><%= link_to 'Delete', chirp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to image_tag("edit.png", :size=>"20x20"), edit_chirp_path(chirp) %></td>
+            <td><%= link_to image_tag("trashcan.png", :size=>"20x20"), chirp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <%end%>
           
         </tr>

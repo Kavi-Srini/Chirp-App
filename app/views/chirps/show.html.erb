@@ -1,16 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Message:</strong>
-  <%= @chirp.message.html_safe %>
-</p>
-
-<p>
-    <strong>User:</strong>
-    <%= link_to @chirp.user.username, show_user_path(id: @chirp.user.id) %>
-</p>
+ <div class="d-flex align-items-center">
+	        <div class="row my-3 " style="background-color: #ebf2ff; width: 500px">
+		        	<div class="col-xs mx-3 my-2">
+			        	<% if @chirp.user.avatar.attached? %>
+		                        <%= image_tag (chirp.user.avatar.variant(resize_to_limit: [50,50]))%>
+		                      <% else %>
+		                        <%= image_tag("default_avatar.png", :size=>"50x50")%> 
+		                <% end%>
+	                </div>
+			        
+				    <div class="col-xs align-self-center">
+				    	<p >@<%= @chirp.user.username %>
+	                    <%= time_ago_in_words(@chirp.created_at) if Time.now - @chirp.created_at < 86400 %> 
+	                    <%= @chirp.created_at.strftime('%b %e') if Time.now - @chirp.created_at > 86400 %>
+		        		</p>
+				    </div>
+				    <div class="col-5 ml-3 my-2" style="width: 450px; background-color: #e1e8f5"><%= @chirp.message.html_safe %></div>
+				   
+				</div> 
+			</div>
 
 <%if user_signed_in? && current_user.id == @chirp.user.id %>
 <%= link_to 'Edit', edit_chirp_path(@chirp) %> |
 <% end %>
-<%= link_to 'Back', chirps_path %>
+<%= link_to 'Back', chirps_path, class: "btn btn-primary btn-sm" %>

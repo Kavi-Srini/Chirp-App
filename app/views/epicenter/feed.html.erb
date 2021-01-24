@@ -1,5 +1,4 @@
 <h1>@<%= current_user.username %>'s Chirp Feed</h1>
-<p>Here is what your "friends" are saying:</p>
 
 
 <br>
@@ -7,10 +6,13 @@
     <%= render 'chirps/form', chirp: @chirp %>
 </div>
 <br>
+
+<p><strong>Here is what your "friends" are saying:</strong></p>
+
 <div class="row">
-	<div class="col-3"></div>
-	<div class="col-9">
-	    <% @following_chirps.each do |chirp| %>
+	<div class="col-4"></div>
+	<div class="col-8">
+	    <% @following_chirps.reverse_each do |chirp| %>
 	    <div class="d-flex align-items-center">
 	        <div class="row my-3 " style="background-color: #ebf2ff; width: 500px">
 		        	<div class="col-xs mx-3 my-2">
@@ -27,7 +29,12 @@
 	                    <%= chirp.created_at.strftime('%b %e') if Time.now - chirp.created_at > 86400 %>
 		        		</p>
 				    </div>
-				    <div class="col-5 ml-3 my-2" style="width: 450px; background-color: #e1e8f5"><%= chirp.message.html_safe %></div>
+				    <div class="col-5 ml-3 my-2" style="width: 450px; background-color: #e1e8f5"><%= chirp.message.html_safe %>
+				    	<%if user_signed_in? && current_user.id == chirp.user.id %>
+				            <%= link_to image_tag("edit.png", :size=>"20x20"), edit_chirp_path(chirp) %>
+				            <%= link_to image_tag("trashcan.png", :size=>"20x20"), chirp, method: :delete, data: { confirm: 'Are you sure?' } %>
+            			<%end%>
+				    </div>
 				   
 				</div> 
 			</div>
