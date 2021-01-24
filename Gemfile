@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'image_processing', '~> 1.2'
 gem 'gravatar_image_tag'
 
+gem 'aws-sdk'
+
 gem 'devise'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
